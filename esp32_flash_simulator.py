@@ -119,15 +119,15 @@ class SimulationCanvas(QWidget):
         
         # Draw power connections
         painter.setPen(QPen(QColor(255, 50, 50), 2))
-        painter.drawLine(esp32_rect.right(), esp32_rect.top() + 30, 
-                        flash_rect.left(), flash_rect.top() + 30)
+        painter.drawLine(int(esp32_rect.right()), int(esp32_rect.top() + 30), 
+                        int(flash_rect.left()), int(flash_rect.top() + 30))
         painter.setPen(QPen(Qt.white, 1))
         painter.drawText(QRectF(360, esp32_rect.top() + 15, 60, 20), 
                         Qt.AlignCenter, "VCC")
         
         painter.setPen(QPen(QColor(100, 100, 100), 2))
-        painter.drawLine(esp32_rect.right(), esp32_rect.bottom() - 30, 
-                        flash_rect.left(), flash_rect.bottom() - 30)
+        painter.drawLine(int(esp32_rect.right()), int(esp32_rect.bottom() - 30), 
+                        int(flash_rect.left()), int(flash_rect.bottom() - 30))
         painter.setPen(QPen(Qt.white, 1))
         painter.drawText(QRectF(360, esp32_rect.bottom() - 35, 60, 20), 
                         Qt.AlignCenter, "GND")
@@ -153,13 +153,13 @@ class SimulationCanvas(QWidget):
         for i in range(num_pins):
             pin_y = start_y + i * pin_spacing
             painter.setPen(QPen(color.lighter(180), 2))
-            painter.drawLine(rect.left() - 10, pin_y, rect.left(), pin_y)
+            painter.drawLine(int(rect.left() - 10), int(pin_y), int(rect.left()), int(pin_y))
         
         # Chip pins (right side)
         for i in range(num_pins):
             pin_y = start_y + i * pin_spacing
             painter.setPen(QPen(color.lighter(180), 2))
-            painter.drawLine(rect.right(), pin_y, rect.right() + 10, pin_y)
+            painter.drawLine(int(rect.right()), int(pin_y), int(rect.right() + 10), int(pin_y))
         
         # Label
         painter.setPen(QPen(Qt.white, 1))
@@ -174,7 +174,7 @@ class SimulationCanvas(QWidget):
         
         # Base line
         painter.setPen(QPen(color, 2))
-        painter.drawLine(start_x, y_pos, end_x, y_pos)
+        painter.drawLine(int(start_x), int(y_pos), int(end_x), int(y_pos))
         
         # Animated data flow
         if self.data_flowing:
