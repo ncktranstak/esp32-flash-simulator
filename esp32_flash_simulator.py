@@ -92,17 +92,17 @@ class SimulationCanvas(QWidget):
         painter.setRenderHint(QPainter.Antialiasing)
         
         # Background
-        painter.fillRect(self.rect(), QColor(30, 30, 30))
+        painter.fillRect(self.rect(), QColor(240, 240, 245))
         
         # Define positions
         esp32_rect = QRectF(50, 150, 250, 200)
         flash_rect = QRectF(500, 150, 250, 200)
         
         # Draw ESP32-S3 SoC
-        self._draw_chip(painter, esp32_rect, "ESP32-S3", QColor(100, 150, 255))
+        self._draw_chip(painter, esp32_rect, "ESP32-S3", QColor(70, 120, 220))
         
         # Draw Flash Chip
-        self._draw_chip(painter, flash_rect, "W25Q256JWPIQ\n256Mbit NOR Flash", QColor(255, 150, 100))
+        self._draw_chip(painter, flash_rect, "W25Q256JWPIQ\n256Mbit NOR Flash", QColor(220, 100, 60))
         
         # Draw SPI connections
         connections = [
@@ -121,19 +121,19 @@ class SimulationCanvas(QWidget):
         painter.setPen(QPen(QColor(255, 50, 50), 2))
         painter.drawLine(int(esp32_rect.right()), int(esp32_rect.top() + 30), 
                         int(flash_rect.left()), int(flash_rect.top() + 30))
-        painter.setPen(QPen(Qt.white, 1))
+        painter.setPen(QPen(QColor(50, 50, 50), 1))
         painter.drawText(QRectF(360, esp32_rect.top() + 15, 60, 20), 
                         Qt.AlignCenter, "VCC")
         
         painter.setPen(QPen(QColor(100, 100, 100), 2))
         painter.drawLine(int(esp32_rect.right()), int(esp32_rect.bottom() - 30), 
                         int(flash_rect.left()), int(flash_rect.bottom() - 30))
-        painter.setPen(QPen(Qt.white, 1))
+        painter.setPen(QPen(QColor(50, 50, 50), 1))
         painter.drawText(QRectF(360, esp32_rect.bottom() - 35, 60, 20), 
                         Qt.AlignCenter, "GND")
         
         # Draw title
-        painter.setPen(QPen(Qt.white, 1))
+        painter.setPen(QPen(QColor(50, 50, 50), 1))
         title_font = QFont("Arial", 16, QFont.Bold)
         painter.setFont(title_font)
         painter.drawText(self.rect(), Qt.AlignTop | Qt.AlignHCenter, 
@@ -142,8 +142,8 @@ class SimulationCanvas(QWidget):
     def _draw_chip(self, painter, rect, label, color):
         """Draw a chip rectangle"""
         # Chip body
-        painter.setPen(QPen(color.lighter(150), 2))
-        painter.setBrush(QBrush(color.darker(200)))
+        painter.setPen(QPen(color.darker(120), 2))
+        painter.setBrush(QBrush(color.lighter(140)))
         painter.drawRoundedRect(rect, 10, 10)
         
         # Chip pins (left side)
@@ -152,18 +152,18 @@ class SimulationCanvas(QWidget):
         start_y = rect.center().y() - (num_pins * pin_spacing) / 2
         for i in range(num_pins):
             pin_y = start_y + i * pin_spacing
-            painter.setPen(QPen(color.lighter(180), 2))
+            painter.setPen(QPen(color.darker(130), 2))
             painter.drawLine(int(rect.left() - 10), int(pin_y), int(rect.left()), int(pin_y))
         
         # Chip pins (right side)
         for i in range(num_pins):
             pin_y = start_y + i * pin_spacing
-            painter.setPen(QPen(color.lighter(180), 2))
+            painter.setPen(QPen(color.darker(130), 2))
             painter.drawLine(int(rect.right()), int(pin_y), int(rect.right() + 10), int(pin_y))
         
         # Label
         painter.setPen(QPen(Qt.white, 1))
-        label_font = QFont("Arial", 12, QFont.Bold)
+        label_font = QFont("Arial", 11, QFont.Bold)
         painter.setFont(label_font)
         painter.drawText(rect, Qt.AlignCenter, label)
     
@@ -194,7 +194,7 @@ class SimulationCanvas(QWidget):
                 painter.drawEllipse(QPointF(dot_x, y_pos), 3, 3)
         
         # Label
-        painter.setPen(QPen(Qt.white, 1))
+        painter.setPen(QPen(QColor(50, 50, 50), 1))
         label_font = QFont("Arial", 9)
         painter.setFont(label_font)
         mid_x = (start_x + end_x) / 2
@@ -262,22 +262,8 @@ class MainWindow(QMainWindow):
         self.execute_btn = QPushButton("Execute")
         self.execute_btn.setStyleSheet("""
             QPushButton {
-                background-color: #2a82da;
-                color: white;
-                border: none;
                 padding: 8px 20px;
                 font-weight: bold;
-                border-radius: 4px;
-            }
-            QPushButton:hover {
-                background-color: #3a92ea;
-            }
-            QPushButton:pressed {
-                background-color: #1a72ca;
-            }
-            QPushButton:disabled {
-                background-color: #555;
-                color: #999;
             }
         """)
         self.execute_btn.clicked.connect(self._execute_operation)
@@ -291,13 +277,7 @@ class MainWindow(QMainWindow):
         self.progress_bar = QProgressBar()
         self.progress_bar.setStyleSheet("""
             QProgressBar {
-                border: 2px solid #555;
-                border-radius: 5px;
                 text-align: center;
-                background-color: #2a2a2a;
-            }
-            QProgressBar::chunk {
-                background-color: #2a82da;
             }
         """)
         main_layout.addWidget(self.progress_bar)
@@ -310,11 +290,8 @@ class MainWindow(QMainWindow):
         self.log_text.setReadOnly(True)
         self.log_text.setStyleSheet("""
             QTextEdit {
-                background-color: #1e1e1e;
-                color: #d4d4d4;
                 font-family: 'Consolas', 'Courier New', monospace;
                 font-size: 10pt;
-                border: 1px solid #555;
             }
         """)
         self.log_text.append("ESP32-S3 Flash Simulator Ready")
@@ -339,61 +316,9 @@ class MainWindow(QMainWindow):
         self._apply_dark_theme()
     
     def _apply_dark_theme(self):
-        """Apply dark theme to the application"""
-        self.setStyleSheet("""
-            QMainWindow {
-                background-color: #2b2b2b;
-            }
-            QWidget {
-                background-color: #2b2b2b;
-                color: #ffffff;
-            }
-            QGroupBox {
-                border: 2px solid #555;
-                border-radius: 5px;
-                margin-top: 10px;
-                font-weight: bold;
-                padding-top: 10px;
-            }
-            QGroupBox::title {
-                subcontrol-origin: margin;
-                left: 10px;
-                padding: 0 5px;
-            }
-            QLabel {
-                color: #ffffff;
-            }
-            QComboBox, QSpinBox {
-                background-color: #3c3c3c;
-                color: #ffffff;
-                border: 1px solid #555;
-                padding: 5px;
-                border-radius: 3px;
-            }
-            QComboBox::drop-down {
-                border: none;
-            }
-            QComboBox::down-arrow {
-                image: none;
-                border-left: 5px solid transparent;
-                border-right: 5px solid transparent;
-                border-top: 5px solid #ffffff;
-                margin-right: 5px;
-            }
-            QPushButton {
-                background-color: #3c3c3c;
-                color: #ffffff;
-                border: 1px solid #555;
-                padding: 5px 15px;
-                border-radius: 3px;
-            }
-            QPushButton:hover {
-                background-color: #4c4c4c;
-            }
-            QPushButton:pressed {
-                background-color: #2c2c2c;
-            }
-        """)
+        """Apply minimal custom styling"""
+        # Use default Fusion theme colors, only customize specific elements
+        pass
     
     def _execute_operation(self):
         """Execute the selected flash operation"""
