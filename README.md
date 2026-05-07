@@ -68,8 +68,22 @@ A visual desktop application for simulating ESP32-S3 SoC communication with exte
 
 Run the simulator:
 ```bash
-python esp32_flash_simulator.py
+python main.py
 ```
+
+### Editing the UI
+
+The application is split into two parts for easier maintenance:
+
+1. **esp32_flash_simulator.ui** - UI layout file (can be edited with Qt Designer)
+2. **main.py** - Application logic and custom widgets
+
+To edit the UI with Qt Designer:
+```bash
+designer esp32_flash_simulator.ui
+```
+
+Or install Qt Designer separately if not included with PyQt5.
 
 ### How to Use
 
@@ -113,11 +127,13 @@ The application is structured with:
 ```
 esp32-flash-simulator/
 │
-├── esp32_flash_simulator.py   # Main application file
-├── requirements.txt            # Python dependencies
-├── README.md                   # This file
-├── .gitignore                  # Git ignore rules
-└── LICENSE                     # License file
+├── main.py                         # Main application logic
+├── esp32_flash_simulator.ui        # Qt Designer UI file
+├── esp32_flash_simulator.py        # Legacy single-file version (deprecated)
+├── requirements.txt                # Python dependencies
+├── README.md                       # This file
+├── .gitignore                      # Git ignore rules
+└── LICENSE                         # License file
 ```
 
 ### Contributing

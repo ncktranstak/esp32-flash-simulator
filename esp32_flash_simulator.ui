@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1000</width>
+    <height>700</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>ESP32-S3 Flash Simulator</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QWidget" name="canvasContainer" native="true">
+      <property name="minimumSize">
+       <size>
+        <width>800</width>
+        <height>500</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="controlGroup">
+      <property name="title">
+       <string>Control Panel</string>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <layout class="QVBoxLayout" name="operationLayout">
+         <item>
+          <widget class="QLabel" name="operationLabel">
+           <property name="text">
+            <string>Operation:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QComboBox" name="operationCombo">
+           <item>
+            <property name="text">
+             <string>Read</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Write</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Erase Sector</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Erase Block</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Chip Erase</string>
+            </property>
+           </item>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="addressLayout">
+         <item>
+          <widget class="QLabel" name="addressLabel">
+           <property name="text">
+            <string>Address (hex):</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="addressInput">
+           <property name="prefix">
+            <string>0x</string>
+           </property>
+           <property name="displayIntegerBase">
+            <number>16</number>
+           </property>
+           <property name="maximum">
+            <number>33554431</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="sizeLayout">
+         <item>
+          <widget class="QLabel" name="sizeLabel">
+           <property name="text">
+            <string>Size (bytes):</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="sizeInput">
+           <property name="maximum">
+            <number>1048576</number>
+           </property>
+           <property name="value">
+            <number>4096</number>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QVBoxLayout" name="executeLayout">
+         <item>
+          <widget class="QLabel" name="spacerLabel">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="executeBtn">
+           <property name="text">
+            <string>Execute</string>
+           </property>
+           <property name="styleSheet">
+            <string notr="true">QPushButton {
+    padding: 8px 20px;
+    font-weight: bold;
+}</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QProgressBar" name="progressBar">
+      <property name="value">
+       <number>0</number>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QProgressBar {
+    text-align: center;
+}</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="logGroup">
+      <property name="title">
+       <string>Operation Log</string>
+      </property>
+      <layout class="QVBoxLayout" name="logMainLayout">
+       <item>
+        <widget class="QTextEdit" name="logText">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QTextEdit {
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 10pt;
+}</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="logButtonLayout">
+         <item>
+          <widget class="QPushButton" name="clearLogBtn">
+           <property name="text">
+            <string>Clear Log</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
