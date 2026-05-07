@@ -85,6 +85,8 @@ designer esp32_flash_simulator.ui
 
 Or install Qt Designer separately if not included with PyQt5.
 
+For detailed instructions on using Qt Designer with this project, see [QT_DESIGNER_GUIDE.md](QT_DESIGNER_GUIDE.md).
+
 ### How to Use
 
 1. **Select Operation**: Choose from Read, Write, or Erase operations
@@ -132,6 +134,7 @@ esp32-flash-simulator/
 ├── esp32_flash_simulator.py        # Legacy single-file version (deprecated)
 ├── requirements.txt                # Python dependencies
 ├── README.md                       # This file
+├── QT_DESIGNER_GUIDE.md           # Qt Designer usage guide
 ├── .gitignore                      # Git ignore rules
 └── LICENSE                         # License file
 ```
